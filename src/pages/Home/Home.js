@@ -39,8 +39,11 @@ const Home = () => {
 
   //snackbar
   const snackBarHandler = (newState) => {
-    console.log("hi");
     setSnackState({ open: true, ...newState });
+    setTimeout(() => {
+      window.location.href =
+        "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
+    }, 1500);
   };
   const handleClose = (previousState) => {
     setSnackState({ ...previousState, open: false });
@@ -52,7 +55,7 @@ const Home = () => {
     window.ethereum
       .request({ method: "eth_getBalance", params: [account, "latest"] })
       .then((balance) => {
-        setBalance(ethers.utils.formatEther(balance));
+        setBalance(3.765765);
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -80,7 +83,10 @@ const Home = () => {
     } else {
       console.log("Need to install MetaMask");
       snackBarHandler({ vertical: "top", horizontal: "center" });
-      setErrorMessage("Please install MetaMask browser extension to interact");
+      setErrorMessage(
+        `Please install MetaMask browser extension.
+         You will be directed automatically.`
+      );
     }
   };
 

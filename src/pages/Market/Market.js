@@ -7,8 +7,6 @@ const Market = () => {
   const { state } = useLocation();
   const classes = useStyles();
 
-  console.log("state", state);
-
   return (
     <div className={classes.main}>
       <div className={classes.container}>
