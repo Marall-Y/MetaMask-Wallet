@@ -26,7 +26,12 @@ const Home = () => {
   //hooks
   useEffect(() => {
     if (balance == 0.0) {
-      navigate(`/${address}`);
+      navigate(`/${address}`, {
+        state: {
+          balance: balance,
+          address: address,
+        },
+      });
     } else if (balance > 0) {
       navigate("/profile");
     }
