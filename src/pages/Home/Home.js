@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MaskIcon from "../../images/metamask.svg";
 import Snackbar from "@material-ui/core/Snackbar";
 import { ethers } from "ethers";
+import { useNavigate } from "react-router-dom";
 import useStyles from "./Style";
 
 const Home = () => {
@@ -18,6 +19,18 @@ const Home = () => {
   const { vertical, horizontal, open } = snackState;
 
   const classes = useStyles();
+  let navigate = useNavigate();
+
+  console.log("balance", balance);
+
+  //hooks
+  useEffect(() => {
+    if (balance == 0.0) {
+      navigate(`/${address}`);
+    } else if (balance > 0) {
+      navigate("/profile");
+    }
+  }, [balance]);
 
   //snackbar
   const snackBarHandler = (newState) => {
@@ -53,7 +66,7 @@ const Home = () => {
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
           accountChangedHandler(result[0]);
-          setConnButtonText("Wallet Connected");
+          setConnButtonText("Wallet is now connected");
           getAccountBalance(result[0]);
         })
         .catch((error) => {
