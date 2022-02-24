@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
     position: "relative",
   },
   container: {
-    width: "45%",
+    width: "55%",
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
@@ -44,9 +44,7 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     padding: "1.5rem",
   },
-  imageContainer: {
-    flex: 1,
-  },
+
   form__group: {
     marginBottom: "2rem",
   },
@@ -95,13 +93,9 @@ const useStyles = makeStyles(() => ({
       boxShadow: " 0 2rem 3rem rgba(#000)",
     },
   },
-  imageContainer: {
-    flex: 1,
-    display: "flex",
-    justifyContent: "flex-end",
-  },
   backImage: {
-    width: "50%",
+    width: "100%",
+    height: "100%",
   },
 }));
 

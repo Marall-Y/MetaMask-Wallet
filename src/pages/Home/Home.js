@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
 import MaskIcon from "../../images/metamask.svg";
 import Snackbar from "@material-ui/core/Snackbar";
-import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 import useStyles from "./Style";
 
@@ -21,8 +21,6 @@ const Home = () => {
   const classes = useStyles();
   let navigate = useNavigate();
 
-  console.log("balance", balance);
-
   //hooks
   useEffect(() => {
     if (balance == 0.0) {
@@ -33,7 +31,11 @@ const Home = () => {
         },
       });
     } else if (balance > 0) {
-      navigate("/profile");
+      navigate("/profile", {
+        state: {
+          address: address,
+        },
+      });
     }
   }, [balance]);
 
@@ -43,7 +45,7 @@ const Home = () => {
     setTimeout(() => {
       window.location.href =
         "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
-    }, 1500);
+    }, 2000);
   };
   const handleClose = (previousState) => {
     setSnackState({ ...previousState, open: false });
@@ -55,7 +57,7 @@ const Home = () => {
     window.ethereum
       .request({ method: "eth_getBalance", params: [account, "latest"] })
       .then((balance) => {
-        setBalance(3.765765);
+        setBalance(ethers.utils.formatEther(balance));
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -69,7 +71,6 @@ const Home = () => {
 
   const connectWalletHandler = () => {
     if (window.ethereum) {
-      console.log("MetaMask Here!");
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
@@ -81,7 +82,6 @@ const Home = () => {
           setErrorMessage(error.message);
         });
     } else {
-      console.log("Need to install MetaMask");
       snackBarHandler({ vertical: "top", horizontal: "center" });
       setErrorMessage(
         `Please install MetaMask browser extension.
